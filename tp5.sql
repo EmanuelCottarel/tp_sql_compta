@@ -128,3 +128,6 @@ GROUP BY bons_fournisseur.ID_FOU;
 
 
 
+
+
+
