@@ -1,0 +1,71 @@
+-- a --
+SELECT * FROM ARTICLE a
+Order by a.DESIGNATION ASC;
+
+
+-- b --
+SELECT * FROM ARTICLE a
+Order by a.PRIX DESC;
+
+-- c --
+SELECT * from ARTICLE a 
+WHERE a.DESIGNATION LIKE '%boulon%'
+ORDER BY a.PRIX ASC;
+
+-- d --
+SELECT * from ARTICLE a 
+WHERE a.DESIGNATION LIKE '%sachet%';
+
+-- e --
+SELECT * from ARTICLE a 
+WHERE UPPER(a.DESIGNATION) LIKE UPPER('%sachet%');
+
+-- f --
+SELECT * FROM ARTICLE a 
+JOIN FOURNISSEUR f on a.ID_FOU = f.ID
+ORDER BY f.NOM  ASC, a.PRIX DESC; 
+
+-- g --
+SELECT * FROM ARTICLE a 
+JOIN FOURNISSEUR f on a.ID_FOU = f.ID
+WHERE f.NOM like '%Dubois & Fils%';
+
+-- h --
+SELECT AVG(a.PRIX) as 'Moyenne de prix' FROM ARTICLE a 
+JOIN FOURNISSEUR f on a.ID_FOU = f.ID
+WHERE f.NOM like '%Dubois & Fils%';
+
+-- i --
+SELECT f.NOM, AVG(a.PRIX) as 'Moyenne de prix' FROM ARTICLE a 
+JOIN FOURNISSEUR f on a.ID_FOU = f.ID
+GROUP BY f.ID; 
+
+-- j --
+SELECT * FROM BON b 
+WHERE b.DATE_CMDE BETWEEN '2019-03-01' AND '2019-04-05 12:00:00';
+
+-- k --
+SELECT b.id, b.NUMERO, b.DATE_CMDE, b.DELAI  FROM BON b 
+JOIN COMPO c ON b.ID = c.ID_BON 
+JOIN ARTICLE a ON a.ID = c.ID_ART
+WHERE a.DESIGNATION LIKE '%boulon%'
+GROUP BY b.ID; 
+
+-- l --
+SELECT b.id, b.NUMERO, b.DATE_CMDE, b.DELAI, f.NOM  FROM BON b 
+JOIN COMPO c ON b.ID = c.ID_BON 
+JOIN ARTICLE a ON a.ID = c.ID_ART
+JOIN FOURNISSEUR f ON b.ID_FOU = f.ID 
+WHERE a.DESIGNATION LIKE '%boulon%'
+GROUP BY b.ID; 
+
+-- m --
+SELECT c.ID_BON ,SUM(c.QTE * a.PRIX) as 'Total bon' FROM COMPO c  
+JOIN ARTICLE a ON a.ID = c.ID_ART
+GROUP BY c.ID_BON;
+
+-- n --
+
+
+
+
